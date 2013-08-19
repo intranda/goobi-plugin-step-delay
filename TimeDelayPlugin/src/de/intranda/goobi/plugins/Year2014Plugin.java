@@ -113,7 +113,7 @@ public class Year2014Plugin implements IDelayPlugin, IStepPlugin {
     @Override
     public boolean delayIsExhausted() {
         LocalDate datetime = new LocalDate();
-        if (datetime.getYear() > 2012) {
+        if (datetime.getYear() > 2013) {
             return true;
         }
 
