@@ -125,4 +125,8 @@ public class Year2014Plugin implements IDelayPlugin, IStepPlugin {
         System.out.println(plugin.getRemainingDelay());
 
     }
+    
+    public String getPagePath() {
+        return null;
+    }
 }

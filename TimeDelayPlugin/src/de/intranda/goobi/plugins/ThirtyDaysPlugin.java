@@ -128,5 +128,8 @@ public class ThirtyDaysPlugin implements IDelayPlugin, IStepPlugin {
         }
         return false;
     }
-
+    
+    public String getPagePath() {
+        return null;
+    }
 }

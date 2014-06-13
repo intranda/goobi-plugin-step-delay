@@ -128,5 +128,8 @@ public class OneDayPlugin implements IDelayPlugin, IStepPlugin {
         }
         return false;
     }
-
+    
+    public String getPagePath() {
+        return null;
+    }
 }
