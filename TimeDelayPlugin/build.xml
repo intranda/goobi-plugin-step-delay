@@ -189,7 +189,9 @@
 	<!-- Run all targets in appropiate order for clean compile-->
 	<target name="dist" depends="javadoc, junit, pmd, jar.runnable" description="Creating everything for Jenkins.">
 
-
+	    <copy tofile="${dir.deploy}/plugin_ConfigurableDelay.xml" file="plugin_ConfigurableDelay.xml" />
+	    
+	    
 	</target>
 
 	<target name="javadoc">
