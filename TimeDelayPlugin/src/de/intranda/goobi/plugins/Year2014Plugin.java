@@ -6,8 +6,9 @@ import java.util.HashMap;
 import net.xeoh.plugins.base.annotations.PluginImplementation;
 
 import org.apache.log4j.Logger;
+import org.goobi.beans.LogEntry;
 import org.goobi.beans.Step;
-import org.goobi.production.cli.helper.WikiFieldHelper;
+import org.goobi.production.enums.LogType;
 import org.goobi.production.enums.PluginGuiType;
 import org.goobi.production.enums.PluginType;
 import org.goobi.production.enums.StepReturnValue;
@@ -41,7 +42,15 @@ public class Year2014Plugin implements IDelayPlugin, IStepPlugin {
         // set step status to inwork
         step.setBearbeitungsstatusEnum(StepStatus.INWORK);
         step.setBearbeitungsbeginn(new Date());
-        ProcessManager.addLogfile(WikiFieldHelper.getWikiMessage(step.getProzess().getWikifield(), "debug", "Process is blocked until 1.1.2014."), step.getProzess().getId());
+        
+        LogEntry logEntry = new LogEntry();
+        logEntry.setContent("Process is blocked until 1.1.2014.");
+        logEntry.setCreationDate(new Date());
+        logEntry.setProcessId(step.getProzess().getId());
+        logEntry.setType(LogType.DEBUG);
+        logEntry.setUserName("delay");
+        ProcessManager.saveLogEntry(logEntry);
+        
         try {
             StepManager.saveStep(step);
         } catch (DAOException e) {
@@ -87,7 +96,7 @@ public class Year2014Plugin implements IDelayPlugin, IStepPlugin {
         return PLUGIN_NAME;
     }
 
-    @Override
+    
     public String getDescription() {
         return PLUGIN_NAME;
     }
