@@ -8,9 +8,10 @@ import java.util.HashMap;
 import java.util.List;
 
 import org.apache.log4j.Logger;
+import org.goobi.beans.LogEntry;
 import org.goobi.beans.Processproperty;
 import org.goobi.beans.Step;
-import org.goobi.production.cli.helper.WikiFieldHelper;
+import org.goobi.production.enums.LogType;
 import org.goobi.production.enums.PluginGuiType;
 import org.goobi.production.enums.PluginType;
 import org.goobi.production.enums.StepReturnValue;
@@ -51,7 +52,14 @@ public class MovingWallDelayPlugin implements IDelayPlugin, IStepPlugin {
         step.setBearbeitungsbeginn(new Date());
         try {
             Date movingWallDate = getMovingWallDate(step);
-            ProcessManager.addLogfile(WikiFieldHelper.getWikiMessage(step.getProzess().getWikifield(), "debug", "Process is blocked until " + dateFormat.format(movingWallDate)), step.getProzess().getId());
+            LogEntry logEntry = new LogEntry();
+            logEntry.setContent("Process is blocked until " + dateFormat.format(movingWallDate));
+            logEntry.setCreationDate(new Date());
+            logEntry.setProcessId(step.getProzess().getId());
+            logEntry.setType(LogType.DEBUG);
+            logEntry.setUserName("delay");
+            ProcessManager.saveLogEntry(logEntry);
+            
             StepManager.saveStep(step);
         } catch (ParseException | IllegalArgumentException | DAOException e) {
             logger.error(e);
@@ -112,7 +120,7 @@ public class MovingWallDelayPlugin implements IDelayPlugin, IStepPlugin {
         return PLUGIN_NAME;
     }
 
-    @Override
+    
     public String getDescription() {
         return PLUGIN_NAME;
     }
