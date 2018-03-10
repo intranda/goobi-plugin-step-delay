@@ -7,7 +7,6 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 
-import org.apache.log4j.Logger;
 import org.goobi.beans.LogEntry;
 import org.goobi.beans.Processproperty;
 import org.goobi.beans.Step;
@@ -24,25 +23,22 @@ import de.sub.goobi.helper.enums.StepStatus;
 import de.sub.goobi.helper.exceptions.DAOException;
 import de.sub.goobi.persistence.managers.ProcessManager;
 import de.sub.goobi.persistence.managers.StepManager;
+import lombok.extern.log4j.Log4j;
 import net.xeoh.plugins.base.annotations.PluginImplementation;
 
 @PluginImplementation
+@Log4j
 public class MovingWallDelayPlugin implements IDelayPlugin, IStepPlugin {
 
-    private static final String PLUGIN_NAME = "intranda_moving_wall_delay_plugin";
-    private static final Logger logger = Logger.getLogger(MovingWallDelayPlugin.class);
+    private static final String PLUGIN_NAME = "intranda_delay_moving_wall";
     private static final DateFormat dateFormat = new SimpleDateFormat("dd.MM.yyyy");
     private static final DateFormat yearFormat = new SimpleDateFormat("yyyy");
     private static final String MOVINGWALL_PROPERTYNAME = "Movingwall timestamp";
-    
     private Step step;
-//    private String returnPath;
-
 
     @Override
     public void initialize(Step step, String returnPath) {
         this.step = step;
-//        this.returnPath = returnPath;
     }
 
     @Override
@@ -62,7 +58,7 @@ public class MovingWallDelayPlugin implements IDelayPlugin, IStepPlugin {
             
             StepManager.saveStep(step);
         } catch (ParseException | IllegalArgumentException | DAOException e) {
-            logger.error(e);
+            log.error("Error while saving the step", e);
         }
         return false;
     }
@@ -137,10 +133,10 @@ public class MovingWallDelayPlugin implements IDelayPlugin, IStepPlugin {
         try {
             movingWallDate = getMovingWallDate(step);
         } catch (IllegalArgumentException | ParseException e) {
-            logger.error(e);
+            log.error("error getting the moving wall date", e);
         }
         if(movingWallDate == null) {
-            logger.error("Cannot check moving wall delay for " + step.getProcessId() + ": No movingwall timestamp found");
+            log.error("Cannot check moving wall delay for " + step.getProcessId() + ": No movingwall timestamp found");
             return Integer.MAX_VALUE;
         }
         LocalDate datetime = new LocalDate();
@@ -159,10 +155,10 @@ public class MovingWallDelayPlugin implements IDelayPlugin, IStepPlugin {
         try {
             movingWallDate = getMovingWallDate(step);
         } catch (IllegalArgumentException | ParseException e) {
-            logger.error(e);
+            log.error("Error getting the delay information", e);
         }
         if(movingWallDate == null) {
-            logger.error("Cannot exhaust moving wall delay for " + step.getProcessId() + ": No movingwall timestamp found");
+            log.error("Cannot exhaust moving wall delay for " + step.getProcessId() + ": No movingwall timestamp found");
             return false;
         }
         LocalDate datetime = new LocalDate();

@@ -3,9 +3,6 @@ package de.intranda.goobi.plugins;
 import java.util.Date;
 import java.util.HashMap;
 
-import net.xeoh.plugins.base.annotations.PluginImplementation;
-
-import org.apache.log4j.Logger;
 import org.goobi.beans.LogEntry;
 import org.goobi.beans.Step;
 import org.goobi.production.enums.LogType;
@@ -21,20 +18,20 @@ import de.sub.goobi.helper.enums.StepStatus;
 import de.sub.goobi.helper.exceptions.DAOException;
 import de.sub.goobi.persistence.managers.ProcessManager;
 import de.sub.goobi.persistence.managers.StepManager;
+import lombok.extern.log4j.Log4j;
+import net.xeoh.plugins.base.annotations.PluginImplementation;
 
 @PluginImplementation
+@Log4j
 public class Year2014Plugin implements IDelayPlugin, IStepPlugin {
 
-    private static final String PLUGIN_NAME = "2014";
-    private static final Logger logger = Logger.getLogger(Year2014Plugin.class);
+    private static final String PLUGIN_NAME = "intranda_delay_year_2014";
     private Step step;
-//    private String returnPath;
 
 
     @Override
     public void initialize(Step step, String returnPath) {
         this.step = step;
-//        this.returnPath = returnPath;
     }
 
     @Override
@@ -54,7 +51,7 @@ public class Year2014Plugin implements IDelayPlugin, IStepPlugin {
         try {
             StepManager.saveStep(step);
         } catch (DAOException e) {
-            logger.error(e);
+            log.error("Error while saving the step", e);
         }
         return false;
     }

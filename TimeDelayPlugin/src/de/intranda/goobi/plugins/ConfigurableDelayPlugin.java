@@ -3,9 +3,6 @@ package de.intranda.goobi.plugins;
 import java.util.Date;
 import java.util.HashMap;
 
-import net.xeoh.plugins.base.annotations.PluginImplementation;
-
-import org.apache.log4j.Logger;
 import org.goobi.beans.LogEntry;
 import org.goobi.beans.Step;
 import org.goobi.production.enums.LogType;
@@ -22,24 +19,23 @@ import de.sub.goobi.helper.enums.StepStatus;
 import de.sub.goobi.helper.exceptions.DAOException;
 import de.sub.goobi.persistence.managers.ProcessManager;
 import de.sub.goobi.persistence.managers.StepManager;
+import lombok.extern.log4j.Log4j;
+import net.xeoh.plugins.base.annotations.PluginImplementation;
 
 @PluginImplementation
+@Log4j
 public class ConfigurableDelayPlugin implements IDelayPlugin, IStepPlugin {
 
-    private static final String PLUGIN_NAME = "ConfigurableDelay";
-    private static final Logger logger = Logger.getLogger(ConfigurableDelayPlugin.class);
+    private static final String PLUGIN_NAME = "intranda_delay_configurable";
     private Step step;
-    //    private String returnPath;
 
     private int DELAY_IN_DAYS = 3;
 
     @Override
     public void initialize(Step step, String returnPath) {
         this.step = step;
-        //        this.returnPath = returnPath;
-        DELAY_IN_DAYS = ConfigPlugins.getPluginConfig(this).getInt("delayInDays", 3);
+        DELAY_IN_DAYS = ConfigPlugins.getPluginConfig(PLUGIN_NAME).getInt("delayInDays", 3);
     }
-
     
     public boolean execute() {
         // set step status to inwork
@@ -57,7 +53,7 @@ public class ConfigurableDelayPlugin implements IDelayPlugin, IStepPlugin {
         try {
             StepManager.saveStep(step);
         } catch (DAOException e) {
-            logger.error(e);
+            log.error("Error while saving the step", e);
         }
         return false;
     }
