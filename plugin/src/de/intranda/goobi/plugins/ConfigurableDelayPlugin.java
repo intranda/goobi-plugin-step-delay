@@ -3,6 +3,7 @@ package de.intranda.goobi.plugins;
 import java.util.Date;
 import java.util.HashMap;
 
+import org.apache.commons.configuration.SubnodeConfiguration;
 import org.goobi.beans.LogEntry;
 import org.goobi.beans.Step;
 import org.goobi.production.enums.LogType;
@@ -34,7 +35,14 @@ public class ConfigurableDelayPlugin implements IDelayPlugin, IStepPlugin {
     @Override
     public void initialize(Step step, String returnPath) {
         this.step = step;
+
         DELAY_IN_DAYS = ConfigPlugins.getPluginConfig(PLUGIN_NAME).getInt("delayInDays", 3);
+        try {
+            SubnodeConfiguration myconfig = ConfigPlugins.getProjectAndStepConfig(PLUGIN_NAME, step);
+            DELAY_IN_DAYS = myconfig.getInt("delayInDays", DELAY_IN_DAYS);
+        } catch (Exception e) {
+            // no specific configuration was found, so the old style configuration is used
+        }   
     }
     
     public boolean execute() {
