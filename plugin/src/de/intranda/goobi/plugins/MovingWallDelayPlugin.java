@@ -7,7 +7,6 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 
-import org.goobi.beans.LogEntry;
 import org.goobi.beans.Processproperty;
 import org.goobi.beans.Step;
 import org.goobi.production.enums.LogType;
@@ -19,9 +18,9 @@ import org.goobi.production.plugin.interfaces.IStepPlugin;
 import org.joda.time.Days;
 import org.joda.time.LocalDate;
 
+import de.sub.goobi.helper.Helper;
 import de.sub.goobi.helper.enums.StepStatus;
 import de.sub.goobi.helper.exceptions.DAOException;
-import de.sub.goobi.persistence.managers.ProcessManager;
 import de.sub.goobi.persistence.managers.StepManager;
 import lombok.extern.log4j.Log4j;
 import net.xeoh.plugins.base.annotations.PluginImplementation;
@@ -48,14 +47,8 @@ public class MovingWallDelayPlugin implements IDelayPlugin, IStepPlugin {
         step.setBearbeitungsbeginn(new Date());
         try {
             Date movingWallDate = getMovingWallDate(step);
-            LogEntry logEntry = new LogEntry();
-            logEntry.setContent("Process is blocked until " + dateFormat.format(movingWallDate));
-            logEntry.setCreationDate(new Date());
-            logEntry.setProcessId(step.getProzess().getId());
-            logEntry.setType(LogType.DEBUG);
-            logEntry.setUserName("delay");
-            ProcessManager.saveLogEntry(logEntry);
-            
+            Helper.addMessageToProcessJournal(step.getProzess().getId(), LogType.DEBUG, "Process is blocked until " + dateFormat.format(movingWallDate), "delay");
+
             StepManager.saveStep(step);
         } catch (ParseException | IllegalArgumentException | DAOException e) {
             log.error("Error while saving the step", e);
@@ -116,7 +109,7 @@ public class MovingWallDelayPlugin implements IDelayPlugin, IStepPlugin {
         return PLUGIN_NAME;
     }
 
-    
+
     public String getDescription() {
         return PLUGIN_NAME;
     }
@@ -143,7 +136,7 @@ public class MovingWallDelayPlugin implements IDelayPlugin, IStepPlugin {
         LocalDate expire = new LocalDate(movingWallDate.getTime());
         if(datetime.isAfter(expire)) {
             return 0;
-        } else {            
+        } else {
             Days days = Days.daysBetween(datetime, expire);
             return days.getDays();
         }
@@ -171,7 +164,8 @@ public class MovingWallDelayPlugin implements IDelayPlugin, IStepPlugin {
         System.out.println(plugin.getRemainingDelay());
 
     }
-    
+
+    @Override
     public String getPagePath() {
         return null;
     }

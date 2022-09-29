@@ -3,7 +3,6 @@ package de.intranda.goobi.plugins;
 import java.util.Date;
 import java.util.HashMap;
 
-import org.goobi.beans.LogEntry;
 import org.goobi.beans.Step;
 import org.goobi.production.enums.LogType;
 import org.goobi.production.enums.PluginGuiType;
@@ -14,9 +13,9 @@ import org.goobi.production.plugin.interfaces.IStepPlugin;
 import org.joda.time.Days;
 import org.joda.time.LocalDate;
 
+import de.sub.goobi.helper.Helper;
 import de.sub.goobi.helper.enums.StepStatus;
 import de.sub.goobi.helper.exceptions.DAOException;
-import de.sub.goobi.persistence.managers.ProcessManager;
 import de.sub.goobi.persistence.managers.StepManager;
 import lombok.extern.log4j.Log4j;
 import net.xeoh.plugins.base.annotations.PluginImplementation;
@@ -39,15 +38,8 @@ public class TwelfeWeeksDaysPlugin implements IDelayPlugin, IStepPlugin {
     public boolean execute() {
         // set step status to inwork
         step.setBearbeitungsstatusEnum(StepStatus.INWORK);
+        Helper.addMessageToProcessJournal(step.getProzess().getId(), LogType.DEBUG, "started 12 weeks delay.", "delay");
 
-        LogEntry logEntry = new LogEntry();
-        logEntry.setContent("started 12 weeks delay.");
-        logEntry.setCreationDate(new Date());
-        logEntry.setProcessId(step.getProzess().getId());
-        logEntry.setType(LogType.DEBUG);
-        logEntry.setUserName("delay");
-        ProcessManager.saveLogEntry(logEntry);
-        
         step.setBearbeitungsbeginn(new Date());
 
         try {
@@ -95,7 +87,7 @@ public class TwelfeWeeksDaysPlugin implements IDelayPlugin, IStepPlugin {
         return PLUGIN_NAME;
     }
 
-    
+
     public String getDescription() {
         return PLUGIN_NAME;
     }
@@ -132,7 +124,8 @@ public class TwelfeWeeksDaysPlugin implements IDelayPlugin, IStepPlugin {
         }
         return false;
     }
-    
+
+    @Override
     public String getPagePath() {
         return null;
     }
