@@ -24,6 +24,7 @@ import net.xeoh.plugins.base.annotations.PluginImplementation;
 @Log4j2
 public class NinetyDaysPlugin implements IDelayPlugin, IStepPlugin {
 
+    private static final long serialVersionUID = -8356571406147473595L;
     private static final String PLUGIN_NAME = "intranda_delay_90_days";
     private Step step;
     private static final int DELAY_IN_DAYS = 90;
@@ -51,13 +52,11 @@ public class NinetyDaysPlugin implements IDelayPlugin, IStepPlugin {
 
     @Override
     public String cancel() {
-        // TODO Auto-generated method stub
         return null;
     }
 
     @Override
     public String finish() {
-        // TODO Auto-generated method stub
         return null;
     }
 
@@ -86,14 +85,9 @@ public class NinetyDaysPlugin implements IDelayPlugin, IStepPlugin {
         return PLUGIN_NAME;
     }
 
-    public String getDescription() {
-        return PLUGIN_NAME;
-    }
-
     @Override
     public void setDelay(long seconds) {
         // do we need setting a new delay ?
-        // where to save? - new table in mysql?
     }
 
     @Override
@@ -117,10 +111,7 @@ public class NinetyDaysPlugin implements IDelayPlugin, IStepPlugin {
         LocalDate destinationDate = startDate.plusDays(DELAY_IN_DAYS);
 
         LocalDate currentDate = new LocalDate();
-        if (currentDate.isAfter(destinationDate)) {
-            return true;
-        }
-        return false;
+        return currentDate.isAfter(destinationDate);
     }
 
     @Override

@@ -26,19 +26,21 @@ import net.xeoh.plugins.base.annotations.PluginImplementation;
 @Log4j2
 public class ConfigurableDelayPlugin implements IDelayPlugin, IStepPlugin {
 
+    private static final long serialVersionUID = -4052908350317189332L;
+
     private static final String PLUGIN_NAME = "intranda_delay_configurable";
     private Step step;
 
-    private int DELAY_IN_DAYS = 3;
+    private int delayInDays = 3;
 
     @Override
     public void initialize(Step step, String returnPath) {
         this.step = step;
 
-        DELAY_IN_DAYS = ConfigPlugins.getPluginConfig(PLUGIN_NAME).getInt("delayInDays", 3);
+        delayInDays = ConfigPlugins.getPluginConfig(PLUGIN_NAME).getInt("delayInDays", 3);
         try {
             SubnodeConfiguration myconfig = ConfigPlugins.getProjectAndStepConfig(PLUGIN_NAME, step);
-            DELAY_IN_DAYS = myconfig.getInt("delayInDays", DELAY_IN_DAYS);
+            delayInDays = myconfig.getInt("delayInDays", delayInDays);
         } catch (Exception e) {
             // no specific configuration was found, so the old style configuration is used
         }
@@ -63,19 +65,17 @@ public class ConfigurableDelayPlugin implements IDelayPlugin, IStepPlugin {
 
     @Override
     public String cancel() {
-        // TODO Auto-generated method stub
         return null;
     }
 
     @Override
     public String finish() {
-        // TODO Auto-generated method stub
         return null;
     }
 
     @Override
     public HashMap<String, StepReturnValue> validate() {
-        return null;
+        return null; //NOSONAR
     }
 
     @Override
@@ -98,10 +98,6 @@ public class ConfigurableDelayPlugin implements IDelayPlugin, IStepPlugin {
         return PLUGIN_NAME;
     }
 
-    public String getDescription() {
-        return PLUGIN_NAME;
-    }
-
     @Override
     public void setDelay(long seconds) {
         // do we need setting a new delay ?
@@ -111,7 +107,7 @@ public class ConfigurableDelayPlugin implements IDelayPlugin, IStepPlugin {
     @Override
     public int getRemainingDelay() {
         LocalDate startDate = new LocalDate(step.getBearbeitungsbeginn());
-        LocalDate destinationDate = startDate.plusDays(DELAY_IN_DAYS);
+        LocalDate destinationDate = startDate.plusDays(delayInDays);
 
         LocalDate currentDate = new LocalDate();
 
@@ -126,13 +122,10 @@ public class ConfigurableDelayPlugin implements IDelayPlugin, IStepPlugin {
     @Override
     public boolean delayIsExhausted() {
         LocalDate startDate = new LocalDate(step.getBearbeitungsbeginn());
-        LocalDate destinationDate = startDate.plusDays(DELAY_IN_DAYS);
+        LocalDate destinationDate = startDate.plusDays(delayInDays);
 
         LocalDate currentDate = new LocalDate();
-        if (currentDate.isAfter(destinationDate)) {
-            return true;
-        }
-        return false;
+        return currentDate.isAfter(destinationDate);
     }
 
     @Override

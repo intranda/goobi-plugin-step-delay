@@ -24,6 +24,7 @@ import net.xeoh.plugins.base.annotations.PluginImplementation;
 @Log4j2
 public class TwelfeWeeksDaysPlugin implements IDelayPlugin, IStepPlugin {
 
+    private static final long serialVersionUID = 8362853734736563076L;
     private static final String PLUGIN_NAME = "intranda_delay_12_weeks";
     private Step step;
 
@@ -52,13 +53,11 @@ public class TwelfeWeeksDaysPlugin implements IDelayPlugin, IStepPlugin {
 
     @Override
     public String cancel() {
-        // TODO Auto-generated method stub
         return null;
     }
 
     @Override
     public String finish() {
-        // TODO Auto-generated method stub
         return null;
     }
 
@@ -87,14 +86,9 @@ public class TwelfeWeeksDaysPlugin implements IDelayPlugin, IStepPlugin {
         return PLUGIN_NAME;
     }
 
-    public String getDescription() {
-        return PLUGIN_NAME;
-    }
-
     @Override
     public void setDelay(long seconds) {
         // do we need setting a new delay ?
-        // where to save? - new table in mysql?
     }
 
     @Override
@@ -118,10 +112,7 @@ public class TwelfeWeeksDaysPlugin implements IDelayPlugin, IStepPlugin {
         LocalDate destinationDate = startDate.plusWeeks(DELAY_IN_WEEKS);
 
         LocalDate currentDate = new LocalDate();
-        if (currentDate.isAfter(destinationDate)) {
-            return true;
-        }
-        return false;
+        return currentDate.isAfter(destinationDate);
     }
 
     @Override

@@ -24,10 +24,11 @@ import net.xeoh.plugins.base.annotations.PluginImplementation;
 @Log4j2
 public class FifteenDaysPlugin implements IDelayPlugin, IStepPlugin {
 
+    private static final long serialVersionUID = -6164703349064703030L;
     private static final String PLUGIN_NAME = "intranda_delay_15_days";
     private Step step;
 
-    private static final int DELAY_IN_DAYS = 15;
+    private static final int delayInDays = 15;
 
     @Override
     public void initialize(Step step, String returnPath) {
@@ -51,13 +52,11 @@ public class FifteenDaysPlugin implements IDelayPlugin, IStepPlugin {
 
     @Override
     public String cancel() {
-        // TODO Auto-generated method stub
         return null;
     }
 
     @Override
     public String finish() {
-        // TODO Auto-generated method stub
         return null;
     }
 
@@ -86,20 +85,15 @@ public class FifteenDaysPlugin implements IDelayPlugin, IStepPlugin {
         return PLUGIN_NAME;
     }
 
-    public String getDescription() {
-        return PLUGIN_NAME;
-    }
-
     @Override
     public void setDelay(long seconds) {
-        // do we need setting a new delay ?
-        // where to save? - new table in mysql?
+        // do nothing
     }
 
     @Override
     public int getRemainingDelay() {
         LocalDate startDate = new LocalDate(step.getBearbeitungsbeginn());
-        LocalDate destinationDate = startDate.plusDays(DELAY_IN_DAYS);
+        LocalDate destinationDate = startDate.plusDays(delayInDays);
 
         LocalDate currentDate = new LocalDate();
 
@@ -114,13 +108,10 @@ public class FifteenDaysPlugin implements IDelayPlugin, IStepPlugin {
     @Override
     public boolean delayIsExhausted() {
         LocalDate startDate = new LocalDate(step.getBearbeitungsbeginn());
-        LocalDate destinationDate = startDate.plusDays(DELAY_IN_DAYS);
+        LocalDate destinationDate = startDate.plusDays(delayInDays);
 
         LocalDate currentDate = new LocalDate();
-        if (currentDate.isAfter(destinationDate)) {
-            return true;
-        }
-        return false;
+        return currentDate.isAfter(destinationDate);
     }
 
     @Override

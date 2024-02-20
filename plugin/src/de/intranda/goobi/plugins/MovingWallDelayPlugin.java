@@ -29,9 +29,10 @@ import net.xeoh.plugins.base.annotations.PluginImplementation;
 @Log4j2
 public class MovingWallDelayPlugin implements IDelayPlugin, IStepPlugin {
 
+    private static final long serialVersionUID = -6552069540244015278L;
     private static final String PLUGIN_NAME = "intranda_delay_moving_wall";
-    private static final DateFormat dateFormat = new SimpleDateFormat("dd.MM.yyyy");
-    private static final DateFormat yearFormat = new SimpleDateFormat("yyyy");
+    private DateFormat dateFormat = new SimpleDateFormat("dd.MM.yyyy");
+    private DateFormat yearFormat = new SimpleDateFormat("yyyy");
     private static final String MOVINGWALL_PROPERTYNAME = "Movingwall timestamp";
     private Step step;
 
@@ -66,8 +67,7 @@ public class MovingWallDelayPlugin implements IDelayPlugin, IStepPlugin {
         for (Processproperty property : properties) {
             if (MOVINGWALL_PROPERTYNAME.equalsIgnoreCase(property.getTitel())) {
                 String value = property.getWert();
-                Date year = yearFormat.parse(value);
-                return year;
+                return yearFormat.parse(value);
             }
         }
         throw new IllegalArgumentException("no movingWall property found");
@@ -75,13 +75,11 @@ public class MovingWallDelayPlugin implements IDelayPlugin, IStepPlugin {
 
     @Override
     public String cancel() {
-        // TODO Auto-generated method stub
         return null;
     }
 
     @Override
     public String finish() {
-        // TODO Auto-generated method stub
         return null;
     }
 
@@ -107,10 +105,6 @@ public class MovingWallDelayPlugin implements IDelayPlugin, IStepPlugin {
 
     @Override
     public String getTitle() {
-        return PLUGIN_NAME;
-    }
-
-    public String getDescription() {
         return PLUGIN_NAME;
     }
 
@@ -157,12 +151,6 @@ public class MovingWallDelayPlugin implements IDelayPlugin, IStepPlugin {
         LocalDate datetime = new LocalDate();
         LocalDate expire = new LocalDate(movingWallDate.getTime());
         return datetime.isAfter(expire);
-    }
-
-    public static void main(String[] args) {
-        MovingWallDelayPlugin plugin = new MovingWallDelayPlugin();
-        System.out.println(plugin.getRemainingDelay());
-
     }
 
     @Override
