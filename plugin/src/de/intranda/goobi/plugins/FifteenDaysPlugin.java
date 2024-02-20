@@ -17,11 +17,11 @@ import de.sub.goobi.helper.Helper;
 import de.sub.goobi.helper.enums.StepStatus;
 import de.sub.goobi.helper.exceptions.DAOException;
 import de.sub.goobi.persistence.managers.StepManager;
-import lombok.extern.log4j.Log4j;
+import lombok.extern.log4j.Log4j2;
 import net.xeoh.plugins.base.annotations.PluginImplementation;
 
 @PluginImplementation
-@Log4j
+@Log4j2
 public class FifteenDaysPlugin implements IDelayPlugin, IStepPlugin {
 
     private static final String PLUGIN_NAME = "intranda_delay_15_days";
@@ -85,7 +85,6 @@ public class FifteenDaysPlugin implements IDelayPlugin, IStepPlugin {
     public String getTitle() {
         return PLUGIN_NAME;
     }
-
 
     public String getDescription() {
         return PLUGIN_NAME;

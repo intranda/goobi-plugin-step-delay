@@ -22,11 +22,11 @@ import de.sub.goobi.helper.Helper;
 import de.sub.goobi.helper.enums.StepStatus;
 import de.sub.goobi.helper.exceptions.DAOException;
 import de.sub.goobi.persistence.managers.StepManager;
-import lombok.extern.log4j.Log4j;
+import lombok.extern.log4j.Log4j2;
 import net.xeoh.plugins.base.annotations.PluginImplementation;
 
 @PluginImplementation
-@Log4j
+@Log4j2
 public class MovingWallDelayPlugin implements IDelayPlugin, IStepPlugin {
 
     private static final String PLUGIN_NAME = "intranda_delay_moving_wall";
@@ -47,7 +47,8 @@ public class MovingWallDelayPlugin implements IDelayPlugin, IStepPlugin {
         step.setBearbeitungsbeginn(new Date());
         try {
             Date movingWallDate = getMovingWallDate(step);
-            Helper.addMessageToProcessJournal(step.getProzess().getId(), LogType.DEBUG, "Process is blocked until " + dateFormat.format(movingWallDate), "delay");
+            Helper.addMessageToProcessJournal(step.getProzess().getId(), LogType.DEBUG,
+                    "Process is blocked until " + dateFormat.format(movingWallDate), "delay");
 
             StepManager.saveStep(step);
         } catch (ParseException | IllegalArgumentException | DAOException e) {
@@ -57,13 +58,13 @@ public class MovingWallDelayPlugin implements IDelayPlugin, IStepPlugin {
     }
 
     protected Date getMovingWallDate(Step step) throws ParseException, IllegalArgumentException {
-        if(step == null) {
+        if (step == null) {
             throw new IllegalArgumentException("Must pass a step to determing moving wall date");
         }
         org.goobi.beans.Process prozess = step.getProzess();
         List<Processproperty> properties = prozess.getEigenschaften();
         for (Processproperty property : properties) {
-            if(property.getTitel().equalsIgnoreCase(MOVINGWALL_PROPERTYNAME)) {
+            if (MOVINGWALL_PROPERTYNAME.equalsIgnoreCase(property.getTitel())) {
                 String value = property.getWert();
                 Date year = yearFormat.parse(value);
                 return year;
@@ -109,7 +110,6 @@ public class MovingWallDelayPlugin implements IDelayPlugin, IStepPlugin {
         return PLUGIN_NAME;
     }
 
-
     public String getDescription() {
         return PLUGIN_NAME;
     }
@@ -128,13 +128,13 @@ public class MovingWallDelayPlugin implements IDelayPlugin, IStepPlugin {
         } catch (IllegalArgumentException | ParseException e) {
             log.error("error getting the moving wall date", e);
         }
-        if(movingWallDate == null) {
+        if (movingWallDate == null) {
             log.error("Cannot check moving wall delay for " + step.getProcessId() + ": No movingwall timestamp found");
             return Integer.MAX_VALUE;
         }
         LocalDate datetime = new LocalDate();
         LocalDate expire = new LocalDate(movingWallDate.getTime());
-        if(datetime.isAfter(expire)) {
+        if (datetime.isAfter(expire)) {
             return 0;
         } else {
             Days days = Days.daysBetween(datetime, expire);
@@ -150,7 +150,7 @@ public class MovingWallDelayPlugin implements IDelayPlugin, IStepPlugin {
         } catch (IllegalArgumentException | ParseException e) {
             log.error("Error getting the delay information", e);
         }
-        if(movingWallDate == null) {
+        if (movingWallDate == null) {
             log.error("Cannot exhaust moving wall delay for " + step.getProcessId() + ": No movingwall timestamp found");
             return false;
         }
