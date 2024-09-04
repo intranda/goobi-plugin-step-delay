@@ -1,7 +1,7 @@
 ---
 title: Workflow pausieren
 identifier: intranda_step_delay
-description: Step Plugin für die Pausierung des Workflows
+description: Delay Plugin für die Pausierung des Workflows
 published: true
 ---
 
