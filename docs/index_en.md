@@ -1,12 +1,12 @@
 ---
 Title: Delay Workflow
 Identifier: intranda_step_delay
-Description: Step Plugin for pausing the workflow
+Description: Delay Plugin for pausing the workflow
 Published: true
 ---
 
 ## Introduction
-This documentation explains the plugin that pauses the workflow.
+This documentation explains the plugin that allows a workflow to be paused for a certain period of time.
 
 ## Installation
 To be able to use the plugin, the following files must be installed:
@@ -24,7 +24,7 @@ To use the plugin, it must be selected in a workflow step:
 
 
 ## Overview and functionality
-This plugin pauses the workflow for as long as specified in the configuration file.
+This plugin pauses the workflow for as long as specified in the configuration file. Once the configured time has been reached, the relevant workflow step is automatically closed and the workflow continues.
 
 
 ## Configuration
