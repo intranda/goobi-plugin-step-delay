@@ -6,7 +6,7 @@ published: true
 ---
 
 ## Einführung
-Diese Dokumentation erläutert das Plugin, das den Workflow anhält.
+Diese Dokumentation erläutert das Plugin, das es erlaubt einen Workflow für eine bestimmte Zeitspanne zu pausieren.
 
 ## Installation
 Um das Plugin nutzen zu können, müssen folgende Dateien installiert werden:
@@ -24,7 +24,7 @@ Für die Verwendung des Plugins muss dieses in einem Arbeitsschritt ausgewählt 
 
 
 ## Überblick und Funktionsweise
-Dieses Plugin pausiert den Workflow, solange wie es in der Konfigurationsdatei angegeben ist. 
+Dieses Plugin pausiert den Workflow, solange wie es in der Konfigurationsdatei angegeben ist. Ist der konfigurierte Zeitpunkt erreicht, wird der betreffende Arbeitsschritt automatisch geschlossen und der weitere Workflow fortgeführt.
 
 ## Konfiguration
 Die Konfiguration des Plugins erfolgt in der Datei `plugin_intranda_delay_configurable.xml` wie hier aufgezeigt:
