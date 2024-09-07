@@ -1,8 +1,8 @@
 ---
-Title: Delay Workflow
-Identifier: intranda_step_delay
-Description: Delay Plugin for pausing the workflow
-Published: true
+title: Delay Workflow
+identifier: intranda_step_delay
+description: Delay Plugin for pausing the workflow
+published: true
 ---
 
 ## Introduction
