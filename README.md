@@ -12,7 +12,7 @@ More information about the functionality of this plugin and the complete documen
 
 Detail                      | Description
 --------------------------- | ----------------------
-**Plugin identifier**       | {{PLUGIN_IDENTIFIER}}
+**Plugin identifier**       | intranda_step_delay
 **Plugin type**             | step
 **Licence**                 | GPL 2.0 or newer
 **Documentation (German)**  | https://docs.goobi.io/workflow-plugins/v/ger/step/goobi-plugin-step-delay
