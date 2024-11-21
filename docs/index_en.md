@@ -20,6 +20,12 @@ After installing the plugin, it can be selected within the workflow for the resp
 
 To use the plugin, it must be selected in a workflow step:
 
+| Parameter               | Configuration                                |  
+|-------------------------|----------------------------------------------|  
+| Automatic Task          | Yes                                          |  
+| Plugin for Workflow Step| intranda_step_delay                          |  
+| Plugin for Delay        | Yes                                          |
+
 ![Configuration of the workflow step for using the plugin](screen1_en.png)
 
 
