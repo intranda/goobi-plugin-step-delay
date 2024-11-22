@@ -20,6 +20,12 @@ Nach der Installation des Plugins kann dieses innerhalb des Workflows für die j
 
 Für die Verwendung des Plugins muss dieses in einem Arbeitsschritt ausgewählt sein:
 
+|Parameter|Belegung|
+|-- |-- |
+|Automatische Aufgabe|Ja|
+|Plugin für Arbeitsschritt|intranda_step_delay|
+|Plugin für Zeitverzögerung|Ja|
+
 ![Konfiguration des Arbeitsschritts für die Nutzung des Plugins](screen1_de.png)
 
 
