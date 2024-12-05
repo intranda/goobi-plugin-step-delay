@@ -3,7 +3,7 @@
   <parent>
     <groupId>io.goobi.workflow.plugin</groupId>
     <artifactId>plugin-step-delay</artifactId>
-    <version>24.11-SNAPSHOT</version>
+    <version>24.11</version>
   </parent>
   <artifactId>plugin-step-delay-base</artifactId>
   <packaging>jar</packaging>
