@@ -7,6 +7,7 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 
+import org.goobi.beans.GoobiProperty;
 import org.goobi.beans.Processproperty;
 import org.goobi.beans.Step;
 import org.goobi.production.enums.LogType;
@@ -63,8 +64,8 @@ public class MovingWallDelayPlugin implements IDelayPlugin, IStepPlugin {
             throw new IllegalArgumentException("Must pass a step to determing moving wall date");
         }
         org.goobi.beans.Process prozess = step.getProzess();
-        List<Processproperty> properties = prozess.getEigenschaften();
-        for (Processproperty property : properties) {
+        List<GoobiProperty> properties = prozess.getEigenschaften();
+        for (GoobiProperty property : properties) {
             if (MOVINGWALL_PROPERTYNAME.equalsIgnoreCase(property.getTitel())) {
                 String value = property.getWert();
                 return yearFormat.parse(value);
