@@ -3,6 +3,10 @@ title: Delay Workflow
 identifier: intranda_step_delay
 description: Delay Plugin for pausing the workflow
 published: true
+keywords:
+    - Goobi workflow
+    - Plugin
+    - Step Plugin
 ---
 
 ## Introduction

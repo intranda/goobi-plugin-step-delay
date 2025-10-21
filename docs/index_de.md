@@ -3,6 +3,10 @@ title: Workflow pausieren
 identifier: intranda_step_delay
 description: Delay Plugin für die Pausierung des Workflows
 published: true
+keywords:
+    - Goobi workflow
+    - Plugin
+    - Step Plugin
 ---
 
 ## Einführung
