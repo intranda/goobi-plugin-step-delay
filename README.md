@@ -15,8 +15,8 @@ Detail                      | Description
 **Plugin identifier**       | intranda_step_delay
 **Plugin type**             | step
 **Licence**                 | GPL 2.0 or newer
-**Documentation (German)**  | https://docs.goobi.io/workflow-plugins/v/ger/step/goobi-plugin-step-delay
-**Documentation (English)** | https://docs.goobi.io/workflow-plugins/v/eng/step/goobi-plugin-step-delay
+**Documentation (German)**  | https://docs.goobi.io/de/workflow/plugins/step/goobi-plugin-step-delay
+**Documentation (English)** | https://docs.goobi.io/en/workflow/plugins/step/goobi-plugin-step-delay
 
 ## Goobi details
 
