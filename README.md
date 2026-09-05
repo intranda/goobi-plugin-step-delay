@@ -1,6 +1,9 @@
 # Goobi workflow Plugin: goobi-plugin-step-delay
 
-<img src="https://goobi.io/wp-content/uploads/logo_goobi_plugin.png" align="right" style="margin:0 0 20px 20px;" alt="Plugin for Goobi workflow" width="175" height="109">
+<picture>
+  <source media="(prefers-color-scheme: dark)" srcset="https://goobi.io/logo_goobi_workflow_dark.png">
+  <img src="https://goobi.io/logo_goobi_workflow.png" align="right" alt="Plugin for Goobi workflow" width="240" height="132" hspace="20" vspace="10">
+</picture>
 
 This is a set of multiple Step Delay plugins for Goobi workflow. The delay step is only completed when the configurable condition has been met.  For example, it can be configured that the step may only be completed after a defined period of time.
 
